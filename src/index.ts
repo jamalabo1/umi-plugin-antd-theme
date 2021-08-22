@@ -7,6 +7,7 @@ import serveStatic from 'serve-static';
 import rimraf from 'rimraf';
 import { existsSync, mkdirSync } from 'fs';
 import defaultTheme from './defaultTheme';
+import genericNames from 'generic-names';
 
 const buildCss = require('antd-pro-merge-less');
 const winPath = require('slash2');
@@ -17,6 +18,7 @@ interface themeConfig {
   key: string;
   modifyVars?: { [key: string]: string };
 }
+
 
 export default function (api: IApi) {
   api.modifyDefaultConfig((config) => {
@@ -36,16 +38,7 @@ export default function (api: IApi) {
           ) {
             return localName;
           }
-          const match = context.resourcePath.match(/src(.*)/);
-          if (match && match[1]) {
-            const antdProPath = match[1].replace('.less', '');
-            const arr = winPath(antdProPath)
-              .split('/')
-              .map((a: string) => a.replace(/([A-Z])/g, '-$1'))
-              .map((a: string) => a.toLowerCase());
-            return `antd-pro${arr.join('-')}-${localName}`.replace(/--/g, '-');
-          }
-          return localName;
+          return genericNames('[local]___[hash:base64:5]')(localName, context.resourcePath);
         },
       },
     };
