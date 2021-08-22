@@ -7,10 +7,10 @@ import serveStatic from 'serve-static';
 import rimraf from 'rimraf';
 import { existsSync, mkdirSync } from 'fs';
 import defaultTheme from './defaultTheme';
-import genericNames from 'generic-names';
-
-const buildCss = require('antd-pro-merge-less');
 const winPath = require('slash2');
+const buildCss = require('antd-pro-merge-less');
+const cssConvention = require('antd-pro-merge-less/getLocalIdentName');
+
 
 interface themeConfig {
   theme?: string;
@@ -38,7 +38,7 @@ export default function (api: IApi) {
           ) {
             return localName;
           }
-          return genericNames('[local]___[hash:base64:5]')(localName, context.resourcePath);
+          return cssConvention(localName, context.resourcePath);
         },
       },
     };
