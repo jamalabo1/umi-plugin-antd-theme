@@ -6,7 +6,7 @@
     "name": "chenshuai2144",
     "email": "qixian.cs@outlook.com"
   },
-  "repository": "https://github.com/jamalabo1/umi-plugin-ant-theme.git",
+  "repository": "https://github.com/jamalabo1/umi-plugin-antd-theme.git",
   "peerDependencies": {
     "umi": "2.x || ^2.9.0-0 || 3.x"
   },
